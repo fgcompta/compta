@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="hibernate.session_factory_name">
+		 
+		<property name="hibernate.connection.datasource">java:/comp/env/jdbc/compta</property>
+		 
+
+		<property name="hibernate.dialect">com.tyredating.crm.persistence.util.hibernate.MySQLDialect</property>
+		<property name="hibernate.hbm2ddl.auto">none</property>
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.format_sql">false</property>
+		<property name="hibernate.session_factory_name">jndi/session_factory</property>
+		<property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+		
+		<property name="hibernate.connection.zeroDateTimeBehavior">convertToNull</property>
+		
+		<mapping class="compta.persistence.entity.Article"/>
+		<mapping class="compta.persistence.entity.ArticleStock"/>
+		<mapping class="compta.persistence.entity.Config"/>
+		<mapping class="compta.persistence.entity.Customer"/>
+		<mapping class="compta.persistence.entity.Invoice"/>
+		<mapping class="compta.persistence.entity.InvoiceLine"/>
+		<mapping class="compta.persistence.entity.InvoicePaymentMean"/>
+		<mapping class="compta.persistence.entity.PaymentMean"/>
+		<mapping class="compta.persistence.entity.VatRate"/>
+		
+	</session-factory>
+</hibernate-configuration>
