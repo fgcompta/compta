@@ -1,0 +1,35 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	<ui:define name="content">
+		<center>
+			<h1>#{msg['welcome.stats']}</h1>
+		</center>
+
+		<h:form>
+		<h:panelGrid columns="2" cellpadding="10">
+			<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
+				<h:outputText value="#{msg['stats.from']}" />
+				<p:calendar value="#{statsBean.date1}" id="popupCal" />
+				<h:outputText value="#{msg['stats.to']}" />
+				<p:calendar value="#{statsBean.date2}" id="popupCal2" />
+
+
+				<h:outputText value="#{msg['stats.type']}" />
+				<p:selectOneMenu value="#{statsBean.stat}">
+					<f:selectItem itemLabel="#{msg['common.selectOne']}" itemValue="" />
+					<f:selectItems value="#{statsBean.stats}" var="s" itemValue="#{s}"
+						itemLabel="#{msg[s.key]}" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+			<p:commandButton value="#{msg['stats.launch']}"
+				actionListener="#{statsBean.launchStats}" ajax="false" /></h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,14 @@
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:15 +0100] "GET /comptamv/articles/articles.xhtml HTTP/1.1" 200 13512 http-bio-8080-exec-1 905
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:15 +0100] "GET /comptamv/javax.faces.resource/theme.css.xhtml?ln=primefaces-sam HTTP/1.1" 200 19704 http-bio-8080-exec-2 47
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:15 +0100] "GET /comptamv/javax.faces.resource/primefaces.js.xhtml?ln=primefaces HTTP/1.1" 200 233831 http-bio-8080-exec-3 31
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/primefaces.css.xhtml?ln=primefaces HTTP/1.1" 200 50561 http-bio-8080-exec-4 62
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/css/default.css.xhtml HTTP/1.1" 200 32 http-bio-8080-exec-5 62
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/layout/layout.css.xhtml?ln=primefaces HTTP/1.1" 200 542 http-bio-8080-exec-6 0
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/jquery/jquery.js.xhtml?ln=primefaces HTTP/1.1" 200 105210 http-bio-8080-exec-7 31
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces HTTP/1.1" 200 227903 http-bio-8080-exec-8 47
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/layout/layout.js.xhtml?ln=primefaces HTTP/1.1" 200 87964 http-bio-8080-exec-9 47
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/img/ajax-loader.gif.xhtml HTTP/1.1" 200 3951 http-bio-8080-exec-2 16
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/primefaces-sam/images/ui-bg_flat_75_ffffff_40x100.png.xhtml HTTP/1.1" 200 178 http-bio-8080-exec-3 0
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/primefaces-sam/images/ui-default.png.xhtml HTTP/1.1" 200 3721 http-bio-8080-exec-3 16
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:16 +0100] "GET /comptamv/javax.faces.resource/primefaces-sam/images/ui-icons_888888_256x240.png.xhtml HTTP/1.1" 200 4369 http-bio-8080-exec-3 0
+0:0:0:0:0:0:0:1 - - [28/Mar/2013:15:26:17 +0100] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-9 0
