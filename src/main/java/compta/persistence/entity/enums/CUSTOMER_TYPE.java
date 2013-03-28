@@ -1,20 +1,26 @@
 package compta.persistence.entity.enums;
 
-public enum CUSTOMER_TYPE
+import compta.persistence.util.IEnum;
+
+public enum CUSTOMER_TYPE implements IEnum
 {
-    CLIENT(1, "client"), COLLECTIVITE(2, "collectivité"), SOCIETE(3, "societé");
+    CLIENT(1, "enum.custType.client"), 
+    //
+    COLLECTIVITE(2, "enum.custType.collectivite"), 
+    //
+    SOCIETE(3, "enum.custType.societe");
 
     private Integer id;
 
-    private String description;
+    private String key;
 
-    private CUSTOMER_TYPE(int id, String description)
+    private CUSTOMER_TYPE(int id, String key)
     {
         this.id = id;
-        this.description = description;
+        this.key = key;
     }
 
-    public Integer getKey(CUSTOMER_TYPE ct)
+    public Integer getId(CUSTOMER_TYPE ct)
     {
         return ct.id;
     }
@@ -31,8 +37,8 @@ public enum CUSTOMER_TYPE
         return null;
     }
 
-    public String getDescription()
+    public String getKey()
     {
-        return this.description;
+        return this.key;
     }
 }
