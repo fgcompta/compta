@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	<ui:define name="content">
+		<center>
+			<h1>#{msg['payments.title']}</h1>
+		</center>
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
+			<p:dataTable var="payment" value="#{paymentMeanBean.elements}" rowKey="#{payment.primaryKey}" paginator="true" rows="10"
+				editable="true" filteredValue="#{paymentMeanBean.filteredElements}" id="elementsTable" style="width:960px;"
+				selection="#{paymentMeanBean.selectedElement}">
+				<p:ajax event="rowEdit" listener="#{paymentMeanBean.onEdit}" />
+				<p:ajax event="rowEditCancel" listener="#{paymentMeanBean.onCancel}" />
+				<p:column styleClass="columnEdit">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="#{msg['payments.name']}" id="name" styleClass="columnEdit" required="true"
+					requiredMessage="#{msg['name.needed']}" filterMatchMode="contains" filterBy="#{payment.name}" sortBy="#{payment.name}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{payment.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{payment.name}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column styleClass="columnEdit">
+					<p:commandButton id="deleteButton" ajax="false" action="#{paymentMeanBean.onDelete}" icon="ui-icon-trash"
+						title="#{message.delete}" update="elementsTable" >
+						<f:setPropertyActionListener value="#{payment}" target="#{paymentMeanBean.selectedElement}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:separator />
+			<p:commandButton value="#{msg['payments.create']}" update="panelCreate" actionListener="#{paymentMeanBean.onNewElement}"
+				ajax="false" />
+			<br />
+			<br />
+			<br />
+			<p:panel id="panelCreate" header="#{msg['payments.create']}" style="margin-bottom:10px;"
+				rendered="#{paymentMeanBean.showCreate}">
+				<h:panelGrid columns="2">
+
+					<h:panelGrid columns="3">
+						<h:outputLabel for="name" value="#{msg['payments.name']} : *" />
+						<p:inputText id="name" value="#{paymentMeanBean.element.name}" required="true" label="#{msg['payments.name']}" />
+						<p:message for="name" />
+
+					</h:panelGrid>
+					<p:commandButton value="#{msg['crud.save']}" update="form" actionListener="#{paymentMeanBean.onCreate}" ajax="false" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+		<p:confirmDialog id="confirmDialog"
+			message="#{msg['message.sureYouWantToDelete']} #{paymentMeanBean.selectedElement.name} ?" severity="alert"
+			widgetVar="confirmation">
+			<p:commandButton id="confirm" value="#{msg['yes']}" onclick="confirmation.hide()"
+				actionListener="#{paymentMeanBean.onDelete}" update="form" />
+			<p:commandButton id="decline" value="#{msg['no']}" onclick="confirmation.hide()" />
+		</p:confirmDialog>
+	</ui:define>
+</ui:composition>
+
