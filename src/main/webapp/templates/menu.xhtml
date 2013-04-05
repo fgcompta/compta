@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -6,13 +7,15 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 	<h:form>
 		<p:outputPanel id="menuPanel" layout="block">
-				<p:menu autoSubmenuDisplay="true" style="margin-top:20px;width:180px;height:483px;border:none;font-size:small;padding:0px;"
+				<p:menu autoSubmenuDisplay="true" style="margin-top:20px;width:180px;height:100%;border:none;font-size:small;padding:0px;"
 					ajax="false" type="sliding" backLabel="#{msg['menu.back']}">
 					<p:submenu label="#{msg['menu.general']}" icon="ui-icon ui-icon-refresh">
-						<p:menuitem value="#{msg['menu.articles']}"
-							url="/articles/articles.xhtml" />
+						<p:menuitem value="#{msg['menu.articles']}" action="#{articlesBean.init}" ajax="false"
+							url="/crud/articles.xhtml" />
+						<p:menuitem value="#{msg['menu.stock']}" 
+							url="/crud/stocks.xhtml" />
 						<p:menuitem value="#{msg['menu.customers']}" 
-							url="/customers/customers.xhtml" />
+							url="/crud/customers.xhtml" />
 						<p:menuitem value="#{msg['menu.newQuote']}" 
 							url="/quote/quote.xhtml" />
 						<p:menuitem value="#{msg['menu.searchQuote']}" 
@@ -21,6 +24,11 @@
 					<p:submenu label="#{msg['menu.others']}" icon="ui-icon ui-icon-refresh">
 						<p:menuitem value="#{msg['menu.stats']}"
 							url="/stats/stats.xhtml" />
+						<p:menuitem value="#{msg['menu.rates']}"
+							url="/crud/rates.xhtml" action="#{vatRateBean.init()}">
+							</p:menuitem>
+						<p:menuitem value="#{msg['menu.payments']}" 
+							url="/crud/payments.xhtml" />
 					</p:submenu>
 		
 				</p:menu>

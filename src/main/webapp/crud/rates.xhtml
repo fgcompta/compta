@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	<ui:define name="content">
+		<center>
+			<h1>#{msg['rates.title']}</h1>
+		</center>
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
+			<p:dataTable var="rate" value="#{vatRateBean.elements}" rowKey="#{rate.primaryKey}" paginator="true" rows="10"
+				editable="true" filteredValue="#{vatRateBean.filteredElements}" id="elementsTable" style="width:960px;"
+				selection="#{vatRateBean.selectedElement}">
+				<p:ajax event="rowEdit" listener="#{vatRateBean.onEdit}" />
+				<p:ajax event="rowEditCancel" listener="#{vatRateBean.onCancel}" />
+				<p:column styleClass="columnEdit">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="#{msg['rates.name']}" id="name" styleClass="columnEdit" required="true"
+					requiredMessage="#{msg['name.needed']}" filterMatchMode="contains" filterBy="#{rate.name}" sortBy="#{rate.name}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{rate.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{rate.name}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg['rates.rate']}" required="true" requiredMessage="#{msg['rate.needed']}"
+					sortBy="#{rate.rate}" filterMatchMode="contains" filterBy="#{rate.rate}" id="rate" styleClass="columnEdit">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{rate.rate}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{rate.rate}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column styleClass="columnEdit">
+					<p:commandButton id="deleteButton" ajax="false" action="#{vatRateBean.onDelete}" icon="ui-icon-trash"
+						title="#{message.delete}" update="elementsTable" >
+						<f:setPropertyActionListener value="#{rate}" target="#{vatRateBean.selectedElement}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:separator />
+			<p:commandButton value="#{msg['rates.create']}" update="panelCreate" actionListener="#{vatRateBean.onNewElement}"
+				ajax="false" />
+			<br />
+			<br />
+			<br />
+			<p:panel id="panelCreate" header="#{msg['rates.create']}" style="margin-bottom:10px;"
+				rendered="#{vatRateBean.showCreate}">
+				<h:panelGrid columns="2">
+
+					<h:panelGrid columns="3">
+						<h:outputLabel for="name" value="#{msg['rates.name']} : *" />
+						<p:inputText id="name" value="#{vatRateBean.element.name}" required="true" label="#{msg['rates.name']}" />
+						<p:message for="name" />
+
+						<h:outputLabel for="rate" value="#{msg['rates.rate']} : *" />
+						<p:inputText id="rate" value="#{vatRateBean.element.rate}" required="true" label="#{msg['rates.rate']}" />
+						<p:message for="rate" />
+
+					</h:panelGrid>
+					<p:commandButton value="#{msg['crud.save']}" update="form" actionListener="#{vatRateBean.onCreate}" ajax="false" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+		<p:confirmDialog id="confirmDialog"
+			message="#{msg['message.sureYouWantToDelete']} #{vatRateBean.selectedElement.name} ?" severity="alert"
+			widgetVar="confirmation">
+			<p:commandButton id="confirm" value="#{msg['yes']}" onclick="confirmation.hide()"
+				actionListener="#{vatRateBean.onDelete}" update="form" />
+			<p:commandButton id="decline" value="#{msg['no']}" onclick="confirmation.hide()" />
+		</p:confirmDialog>
+	</ui:define>
+</ui:composition>
+

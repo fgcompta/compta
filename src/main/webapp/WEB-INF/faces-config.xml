@@ -5,61 +5,43 @@
 	version="2.0">
 
 	<application>
+		<locale-config>
+			<default-locale>fr</default-locale>
+		</locale-config>
 		<resource-bundle>
-			<base-name>messages</base-name>
+			<base-name>compta.client.util.ResourceBundleI18n</base-name>
 			<var>msg</var>
 		</resource-bundle>
 	</application>
-<!-- 	<converter> -->
-<!-- 		<converter-for-class>java.lang.Enum</converter-for-class> -->
-<!-- 		<converter-class>compta.client.util.converter.EnumConverter</converter-class> -->
-<!-- 	</converter> -->
 	<managed-bean>
 		<managed-bean-name>statsBean</managed-bean-name>
 		<managed-bean-class>compta.client.StatsBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>articlesBean</managed-bean-name>
+		<managed-bean-class>compta.client.ArticlesBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>vatRateBean</managed-bean-name>
+		<managed-bean-class>compta.client.VatRateBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>paymentMeanBean</managed-bean-name>
+		<managed-bean-class>compta.client.PaymentMeanBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>customersBean</managed-bean-name>
+		<managed-bean-class>compta.client.CustomersBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<converter>
+		<converter-for-class>compta.persistence.entity.VatRate</converter-for-class>
+		<converter-class>compta.client.util.EntityConverter</converter-class>
+		<!-- <converter-id>entityConverter</converter-id> -->
+	</converter>
 
-
-	<!-- navigation -->
-	<navigation-rule>
-		<description />
-		<from-view-id>/index.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>articles</from-outcome>
-			<to-view-id>/articles/articles.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<description />
-		<from-view-id>/index.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>customers</from-outcome>
-			<to-view-id>/customers/customers.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<description />
-		<from-view-id>/index.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>newQuote</from-outcome>
-			<to-view-id>/quote/quote.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<description />
-		<from-view-id>/index.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>searchQuote</from-outcome>
-			<to-view-id>/quote/searchQuote.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<description />
-		<from-view-id>/index.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>stats</from-outcome>
-			<to-view-id>/stats/stats.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
 </faces-config>

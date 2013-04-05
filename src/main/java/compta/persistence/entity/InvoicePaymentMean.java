@@ -18,30 +18,33 @@ import lombok.Data;
 import compta.persistence.util.EntityConstant;
 import compta.persistence.util.IEntity;
 
-
 @Entity
-@Table(name = "invoice_line")
+@Table(name = "invoice_payment_mean")
 @Data
-public class InvoicePaymentMean implements IEntity<Integer>
-{
+public class InvoicePaymentMean implements IEntity<Integer> {
 
-    private static final long serialVersionUID = -3255613343659091304L;
+	private static final long	serialVersionUID	= -3255613343659091304L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Integer primaryKey;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Integer				primaryKey;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "payment_mean_id")
-    private PaymentMean paymentMean;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false, name = "payment_mean_id")
+	private PaymentMean			paymentMean;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "invoice_id")
-    private Invoice invoice;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false, name = "invoice_id")
+	private Invoice				invoice;
 
-    @Column(name = "amount")
-    @Digits(integer = EntityConstant.DECIMAL_ALL_PARTS, fraction = EntityConstant.DECIMAL_PART)
-    private BigDecimal amount;
+	@Column(name = "amount")
+	@Digits(integer = EntityConstant.DECIMAL_ALL_PARTS, fraction = EntityConstant.DECIMAL_PART)
+	private BigDecimal			amount;
+
+	@Override
+	public String getName() {
+		return invoice.getName() + " " + paymentMean.getName();
+	}
 
 }

@@ -1,38 +1,39 @@
 package compta.persistence.entity.enums;
 
-public enum INVOICE_STATE
-{
-    QUOTE(1, "devis"), INVOICE(2, "facture"), INVOICE_CANCEL(3, "facture annulée");
+import compta.persistence.util.IEnum;
 
-    private Integer id;
+public enum INVOICE_STATE implements IEnum {
+	QUOTE(1, "enum.invoice.state.quote"),
+	//
+	INVOICE(2, "enum.invoice.state.invoice"),
+	//
+	INVOICE_CANCEL(3, "enum.invoice.state.invoice.cancel");
 
-    private String description;
+	private Integer	id;
 
-    private INVOICE_STATE(int id, String description)
-    {
-        this.id = id;
-        this.description = description;
-    }
+	private String	key;
 
-    public Integer getKey(INVOICE_STATE ct)
-    {
-        return ct.id;
-    }
+	private INVOICE_STATE(final int id, final String key) {
+		this.id = id;
+		this.key = key;
+	}
 
-    public INVOICE_STATE valueOf(Integer id)
-    {
-        for (final INVOICE_STATE type : values ())
-        {
-            if (type.id.equals (id))
-            {
-                return type;
-            }
-        }
-        return null;
-    }
+	@Override
+	public Integer getId() {
+		return id;
+	}
 
-    public String getDescription()
-    {
-        return this.description;
-    }
+	public INVOICE_STATE valueOf(final Integer id) {
+		for (final INVOICE_STATE type : values()) {
+			if (type.id.equals(id)) {
+				return type;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String getKey() {
+		return this.key;
+	}
 }

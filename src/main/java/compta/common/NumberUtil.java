@@ -11,14 +11,20 @@ public class NumberUtil {
 		if (ht == null) {
 			return null;
 		}
-		return rate == null ? ht : ht.add(multiply(ht, rate.divide(HUNDRED, 3)));
+		final BigDecimal multi = calcTvaMulti(rate);
+		return rate == null ? ht : multiply(ht, multi);
+	}
+
+	private static BigDecimal calcTvaMulti(final BigDecimal rate) {
+		return BigDecimal.ONE.add(divide(rate, HUNDRED, 3));
 	}
 
 	public static BigDecimal retainVat(final BigDecimal ttc, final BigDecimal rate) {
 		if (ttc == null) {
 			return null;
 		}
-		return rate == null ? ttc : divide(ttc, BigDecimal.ONE.add(divide(rate, HUNDRED, 3)));
+		final BigDecimal multi = calcTvaMulti(rate);
+		return rate == null ? ttc : divide(ttc, multi);
 	}
 
 	public static BigDecimal divide(final BigDecimal numerator, final BigDecimal divisor) {
@@ -35,6 +41,13 @@ public class NumberUtil {
 
 	public static BigDecimal round(final BigDecimal n) {
 		return n == null ? null : n.setScale(2, RoundingMode.HALF_EVEN);
+	}
+
+	public static boolean compare(final BigDecimal one, final BigDecimal two, final boolean ignoreScale) {
+		if (ignoreScale) {
+			one.compareTo(two);
+		}
+		return one.equals(two);
 	}
 
 }

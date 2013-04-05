@@ -2,23 +2,31 @@ package compta.persistence.common;
 
 import compta.persistence.util.IEnum;
 
-public enum STATS implements IEnum{
+public enum STATS implements IEnum {
 
-	SALES("enum.stats.sales"),
+	SALES(1, "enum.stats.sales"),
 	//
-	ARTICLES("enum.stats.articles"),
+	ARTICLES(2, "enum.stats.articles"),
 	//
-	NB_SALES_BY_ARTICLES("enum.stats.nbSalesByArt"),
+	NB_SALES_BY_ARTICLES(3, "enum.stats.nbSalesByArt"),
 	//
-	CA("enum.stats.ca");
+	CA(4, "enum.stats.ca");
 
-	private String key;
+	private String	key;
 
-	private STATS(String key) {
+	private Integer	id;
+
+	private STATS(final Integer id, final String key) {
 		this.key = key;
+		this.id = id;
 	}
 
-	
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
 	public String getKey() {
 		return key;
 	}

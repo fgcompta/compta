@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	<ui:define name="content">
+		<center>
+			<h1>#{msg['articles.title']}</h1>
+		</center>
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
+			<p:dataTable var="article" value="#{articlesBean.elements}" rowKey="#{article.primaryKey}" paginator="true" rows="10"
+				editable="true" filteredValue="#{articlesBean.filteredElements}" id="articlesTable" style="width:960px;"
+				selection="#{articlesBean.selectedElement}">
+				<p:ajax event="rowEdit" listener="#{articlesBean.onEdit}" />
+				<p:ajax event="rowEditCancel" listener="#{articlesBean.onCancel}" />
+				<p:column styleClass="columnEdit">
+					<p:rowEditor />
+				</p:column>
+				<p:column headerText="#{msg['articles.name']}" id="name" styleClass="columnEdit" required="true"
+					requiredMessage="#{msg['name.needed']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{article.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{article.name}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg['articles.reference']}" id="reference" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{article.reference}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{article.reference}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg['articles.priceHT']}" sortBy="#{article.priceHT}" filterMatchMode="contains"
+					filterBy="#{article.priceHT}" id="priceHT" styleClass="columnEdit">
+				            #{article.priceHT}
+				        </p:column>
+
+				<p:column headerText="#{msg['articles.priceTTC']}" required="true" requiredMessage="#{msg['price.needed']}"
+					sortBy="#{article.priceTTC}" filterMatchMode="contains" filterBy="#{article.priceTTC}" id="priceTTC"
+					styleClass="columnEdit">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{article.priceTTC}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{article.priceTTC}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg['articles.vat']}" filterMatchMode="contains" sortBy="#{article.rate}"
+					filterBy="#{article.rate}" id="vat" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+				            #{article.rate.name}
+			            </f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{article.rate}" required="true" requiredMessage="#{msg['rate.needed']}"
+								style="width:100%">
+								<f:selectItem itemLabel="#{msg['common.selectOne']}" itemValue="" style="width:100%" />
+								<f:selectItems value="#{articlesBean.rates}" var="r" itemValue="#{r}" style="width:100%" itemLabel="#{r.name}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+
+				</p:column>
+				<p:column headerText="#{msg['articles.decimalQuantity']}" filterMatchMode="contains"
+					sortBy="#{article.decimalQuantity}" filterBy="#{article.decimalQuantity}" id="decimalQuantity"
+					styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:selectBooleanCheckbox value="#{article.decimalQuantity}" disabled="true" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectBooleanCheckbox value="#{article.decimalQuantity}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['articles.display']}" filterMatchMode="contains" sortBy="#{article.display}"
+					filterBy="#{article.display}" id="display" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:selectBooleanCheckbox value="#{article.display}" disabled="true" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectBooleanCheckbox value="#{article.display}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column>
+					<p:commandButton id="deleteButton" ajax="false" action="#{articlesBean.onDelete}" icon="ui-icon-trash" title="#{message.delete}"  update="articlesTable">                                
+                            <f:setPropertyActionListener value="#{article}" target="#{articlesBean.selectedElement}"/>
+                        </p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:separator />
+			<p:commandButton value="#{msg['articles.create']}" update="panelCreate" actionListener="#{articlesBean.onNewElement}"
+				ajax="false" />
+			<br />
+			<br />
+			<br />
+			<p:panel id="panelCreate" header="#{msg['articles.create']}" style="margin-bottom:10px;"
+				rendered="#{articlesBean.showCreate}">
+				<h:panelGrid columns="2">
+
+					<h:panelGrid columns="3">
+						<h:outputLabel for="name" value="#{msg['articles.name']} : *" />
+						<p:inputText id="name" value="#{articlesBean.element.name}" required="true" label="#{msg['articles.name']}" />
+						<p:message for="name" />
+
+						<h:outputLabel for="ref" value="#{msg['articles.reference']} : *" />
+						<p:inputText id="ref" value="#{articlesBean.element.reference}" required="true"
+							label="#{msg['articles.reference']}" />
+						<p:message for="ref" />
+
+						<h:outputLabel for="priceTTC" value="#{msg['articles.priceTTC']} : *" />
+						<p:inputText id="priceTTC" value="#{articlesBean.element.priceTTC}" required="true"
+							label="#{msg['articles.priceTTC']}" />
+						<p:message for="priceTTC" />
+
+						<h:outputLabel for="rate" value="#{msg['articles.vat']} : *" />
+						<p:selectOneMenu id="rate" value="#{articlesBean.element.rate}" required="true"
+							requiredMessage="#{msg['rate.needed']}" style="width:100%">
+							<f:selectItem itemLabel="#{msg['common.selectOne']}" itemValue="" style="width:100%" />
+							<f:selectItems value="#{articlesBean.rates}" var="r" itemValue="#{r}" style="width:100%" itemLabel="#{r.name}" />
+						</p:selectOneMenu>
+						<p:message for="rate" />
+
+						<h:outputLabel for="displayC" value="#{msg['articles.display']} :" />
+						<p:selectBooleanCheckbox id="displayC" value="#{articlesBean.element.display}" />
+						<p:message for="displayC" />
+
+						<h:outputLabel for="decimalQuantityC" value="#{msg['articles.decimalQuantity']} :" />
+						<p:selectBooleanCheckbox id="decimalQuantityC" value="#{articlesBean.element.decimalQuantity}" />
+						<p:message for="decimalQuantityC" />
+					</h:panelGrid>
+					<p:commandButton value="#{msg['crud.save']}" update="form" actionListener="#{articlesBean.onCreate}" ajax="false" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+		          <p:confirmDialog id="confirmDialog" message="#{msg['message.sureYouWantToDelete']} #{articlesBean.selectedElement.name} ?" severity="alert" widgetVar="confirmation">
+                <p:commandButton id="confirm" value="#{msg['yes']}" onclick="confirmation.hide()" actionListener="#{articlesBean.onDelete}" update="form" />
+                <p:commandButton id="decline" value="#{msg['no']}" onclick="confirmation.hide()"/>    
+            </p:confirmDialog>
+	</ui:define>
+</ui:composition>
+

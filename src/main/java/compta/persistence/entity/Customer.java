@@ -16,49 +16,46 @@ import compta.persistence.entity.enums.CUSTOMER_TYPE;
 import compta.persistence.util.EntityConstant;
 import compta.persistence.util.IEntity;
 
-
 @Entity
 @Table(name = "customer")
 @Data
-public class Customer implements IEntity<Integer>
-{
+public class Customer implements IEntity<Integer> {
 
-    private static final long serialVersionUID = -2040579423409384020L;
+	private static final long	serialVersionUID	= -2040579423409384020L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Integer primaryKey;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Integer				primaryKey;
 
-    @Column(name = "customer_name", length = EntityConstant.AVG_SIZE_VARCHAR)
-    private String name;
+	@Column(name = "customer_name", length = EntityConstant.AVG_SIZE_VARCHAR)
+	private String				name;
 
-    @Column(name = "name_complement", length = EntityConstant.MAX_SIZE_VARCHAR)
-    private String complement;
+	@Column(name = "name_complement", length = EntityConstant.MAX_SIZE_VARCHAR)
+	private String				complement;
 
-    @Column(name = "mail", length = EntityConstant.AVG_SIZE_VARCHAR)
-    private String mail;
+	@Column(name = "mail", length = EntityConstant.AVG_SIZE_VARCHAR)
+	private String				mail;
 
-    @Column(name = "phone_number", length = 10)
-    private String phone;
+	@Column(name = "phone_number", length = 10)
+	private String				phone;
 
-    @Column(name = "mobile_number", length = 10)
-    private String mobile;
+	@Column(name = "mobile_number", length = 10)
+	private String				mobile;
 
-    @Column(name = "infos", length = EntityConstant.MAX_SIZE_VARCHAR)
-    private String infos;
+	@Column(name = "infos", length = EntityConstant.MAX_SIZE_VARCHAR)
+	private String				infos;
 
-    @Column(name = "street", length = EntityConstant.MAX_SIZE_VARCHAR)
-    private String street;
+	@Column(name = "street", length = EntityConstant.MAX_SIZE_VARCHAR)
+	private String				street;
 
-    @Column(name = "postal_code", length = 5)
-    private String postal_code;
+	@Column(name = "postal_code", length = 5)
+	private String				postalCode;
 
-    @Column(name = "city", length = EntityConstant.AVG_SIZE_VARCHAR)
-    private String city;
+	@Column(name = "city", length = EntityConstant.AVG_SIZE_VARCHAR)
+	private String				city;
 
-    @Column(name = "customer_type")
-    @Type(type = "com.persistence.util.hibernate.GenericEnumUserType", parameters = { @Parameter(name = "enumClass",
-                value = "com.persistence.entity.enum.CUSTOMER_TYPE") })
-    private CUSTOMER_TYPE type;
+	@Column(name = "customer_type")
+	@Type(type = "compta.persistence.util.hibernate.GenericEnumUserType", parameters = {@Parameter(name = "enumClass", value = "compta.persistence.entity.enums.CUSTOMER_TYPE")})
+	private CUSTOMER_TYPE		type;
 }

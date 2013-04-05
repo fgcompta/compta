@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	<ui:define name="content">
+		<center>
+			<h1>#{msg['customers.title']}</h1>
+		</center>
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
+			<p:dataTable var="customer" value="#{customersBean.elements}" rowKey="#{customer.primaryKey}" paginator="true"
+				rows="10" editable="true" filteredValue="#{customersBean.filteredElements}" id="customersTable" style="width:960px;"
+				selection="#{customersBean.selectedElement}">
+				<p:ajax event="rowEdit" listener="#{customersBean.onEdit}" />
+				<p:ajax event="rowEditCancel" listener="#{customersBean.onCancel}" />
+				<p:column styleClass="columnEdit">
+					<p:rowEditor />
+				</p:column>
+
+
+
+@Column(name = "postal_code", length = 5)
+	private String				postal_code;
+
+	@Column(name = "city", length = EntityConstant.AVG_SIZE_VARCHAR)
+	private String				city;
+
+	@Column(name = "customer_type")
+	@Type(type = "compta.persistence.util.hibernate.GenericEnumUserType", parameters = {@Parameter(name = "enumClass", value = "compta.persistence.entity.enums.CUSTOMER_TYPE")})
+	private CUSTOMER_TYPE		type;
+				
+				
+				<p:column headerText="#{msg['customers.name']}" id="name" styleClass="columnEdit" required="true"
+					requiredMessage="#{msg['name.needed']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{customer.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{customer.name}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{msg['customers.complement']}" id="complement" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{customer.complement}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{customer.complement}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['customers.mail']}" id="mail" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{customer.mail}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{customer.mail}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['customers.phone']}" id="phone" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{customer.phone}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{customer.phone}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['customers.mobile']}" id="mobile" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{customer.mobile}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{customer.mobile}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['customers.infos']}" id="infos" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{customer.infos}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputTextarea rows="6" cols="33" value="#{customer.infos}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['customers.street']}" id="street" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{customer.street}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{customer.street}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['customers.postalCode']}" id="postalCode" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{customer.postalCode}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{customer.postalCode}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['customers.city']}" id="city" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{customer.city}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{customer.city}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="#{msg['customers.type']}" filterMatchMode="contains" sortBy="#{customer.type}"
+					filterBy="#{customer.type}" id="type" styleClass="columnEdit">
+					<p:cellEditor>
+						<f:facet name="output">
+				            #{msg[customer.type.key]}
+			            </f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{customer.type}" required="true" requiredMessage="#{msg['type.needed']}"
+								style="width:100%">
+								<f:selectItem itemLabel="#{msg['common.selectOne']}" itemValue="" style="width:100%" />
+								<f:selectItems value="#{customersBean.types}" var="t" itemValue="#{t}" 
+								style="width:100%" itemLabel="#{msg[t.key]}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+
+				</p:column>
+				
+				<p:column>
+					<p:commandButton id="deleteButton" ajax="false" action="#{customersBean.onDelete}" icon="ui-icon-trash"
+						title="#{message.delete}" update="customersTable">
+						<f:setPropertyActionListener value="#{customer}" target="#{customersBean.selectedElement}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:separator />
+			<p:commandButton value="#{msg['customers.create']}" update="panelCreate"
+				actionListener="#{customersBean.onNewElement}" ajax="false" />
+			<br />
+			<br />
+			<br />
+			<p:panel id="panelCreate" header="#{msg['customers.create']}" style="margin-bottom:10px;"
+				rendered="#{customersBean.showCreate}">
+				<h:panelGrid columns="2">
+
+					<h:panelGrid columns="3">
+						<h:outputLabel for="name" value="#{msg['customers.name']} : *" />
+						<p:inputText id="name" value="#{customersBean.element.name}" required="true" label="#{msg['customers.name']}" />
+						<p:message for="name" />
+
+						<h:outputLabel for="ref" value="#{msg['customers.reference']} : *" />
+						<p:inputText id="ref" value="#{customersBean.element.reference}" required="true"
+							label="#{msg['customers.reference']}" />
+						<p:message for="ref" />
+
+						<h:outputLabel for="priceTTC" value="#{msg['customers.priceTTC']} : *" />
+						<p:inputText id="priceTTC" value="#{customersBean.element.priceTTC}" required="true"
+							label="#{msg['customers.priceTTC']}" />
+						<p:message for="priceTTC" />
+
+						<h:outputLabel for="rate" value="#{msg['customers.vat']} : *" />
+						<p:selectOneMenu id="rate" value="#{customersBean.element.rate}" required="true"
+							requiredMessage="#{msg['rate.needed']}" style="width:100%">
+							<f:selectItem itemLabel="#{msg['common.selectOne']}" itemValue="" style="width:100%" />
+							<f:selectItems value="#{customersBean.rates}" var="r" itemValue="#{r}" style="width:100%" itemLabel="#{r.name}" />
+						</p:selectOneMenu>
+						<p:message for="rate" />
+
+						<h:outputLabel for="displayC" value="#{msg['customers.display']} :" />
+						<p:selectBooleanCheckbox id="displayC" value="#{customersBean.element.display}" />
+						<p:message for="displayC" />
+
+						<h:outputLabel for="decimalQuantityC" value="#{msg['customers.decimalQuantity']} :" />
+						<p:selectBooleanCheckbox id="decimalQuantityC" value="#{customersBean.element.decimalQuantity}" />
+						<p:message for="decimalQuantityC" />
+					</h:panelGrid>
+					<p:commandButton value="#{msg['crud.save']}" update="form" actionListener="#{customersBean.onCreate}" ajax="false" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+		<p:confirmDialog id="confirmDialog"
+			message="#{msg['message.sureYouWantToDelete']} #{customersBean.selectedElement.name} ?" severity="alert"
+			widgetVar="confirmation">
+			<p:commandButton id="confirm" value="#{msg['yes']}" onclick="confirmation.hide()"
+				actionListener="#{customersBean.onDelete}" update="form" />
+			<p:commandButton id="decline" value="#{msg['no']}" onclick="confirmation.hide()" />
+		</p:confirmDialog>
+	</ui:define>
+</ui:composition>
+

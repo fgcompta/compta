@@ -7,27 +7,39 @@ import java.util.ResourceBundle;
 
 public class MessagesReader {
 
-	public static String getMessages( String key,  Locale locale) {
+	public static String getMessages(final String key) {
+		return getMessages(key, null, null);
+	}
+
+	public static String getMessages(final String key, final Object params[]) {
+		return getMessages(key, null, params);
+	}
+
+	public static String getMessages(final String key, final Locale locale) {
 		return getMessages(key, locale, null);
 	}
-	
-	public static String getMessages( String key,  Locale locale, Object params[]) {
 
-        String text;
-        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+	public static String getMessages(final String key, Locale locale, final Object params[]) {
 
-        try {
-            text = bundle.getString(key);
-        } catch (MissingResourceException e) {
-            text = "?? key " + key + " not found ??";
-        }
+		String text;
+		if (locale == null) {
+			locale = Locale.FRENCH;
+		}
+		final ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
-        if (params != null) {
-            MessageFormat mf = new MessageFormat(text, locale);
-            text = mf.format(params, new StringBuffer(), null).toString();
-        }
+		try {
+			text = bundle.getString(key);
+		}
+		catch (final MissingResourceException e) {
+			text = "?? key " + key + " not found ??";
+		}
 
-        return text;
-    }
-	
+		if (params != null) {
+			final MessageFormat mf = new MessageFormat(text, locale);
+			text = mf.format(params, new StringBuffer(), null).toString();
+		}
+
+		return text;
+	}
+
 }
